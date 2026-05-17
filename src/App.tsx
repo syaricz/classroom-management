@@ -12,7 +12,7 @@ import { Toaster } from "./components/refine-ui/notification/toaster";
 import { useNotificationProvider } from "./components/refine-ui/notification/use-notification-provider";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import Dashboard from "@/pages/dashboard.tsx";
-import {BookOpen, Building2, GraduationCap, Home} from "lucide-react";
+import { BookOpen, Building2, GraduationCap, Home, Users } from "lucide-react";
 import {Layout} from "@/components/refine-ui/layout/layout.tsx";
 import SubjectsList from "@/pages/subjects/list.tsx";
 import SubjectsCreate from "@/pages/subjects/create.tsx";
@@ -24,6 +24,7 @@ import { authProvider } from "./providers/auth";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import DepartmentsList from "./pages/departments/list";
+import FacultyList from "./pages/faculty/list";
 
 import {dataProvider} from "@/providers/data.ts";
 
@@ -64,6 +65,14 @@ function App() {
                       },
                   },
                   {
+                      name: "users",
+                      list: "/faculty",
+                      meta: {
+                          label: "Faculty",
+                          icon: <Users />,
+                      },
+                  },
+                  {
                       name: 'classes',
                       list: '/classes',
                       create: '/classes/create',
@@ -99,6 +108,10 @@ function App() {
 
                       <Route path="departments">
                           <Route index element={<DepartmentsList />} />
+                      </Route>
+
+                      <Route path="faculty">
+                          <Route index element={<FacultyList />} />
                       </Route>
 
                       <Route path="classes">
