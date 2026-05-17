@@ -29,18 +29,26 @@ const options: CreateDataProviderOptions = {
         getEndpoint: ({ resource }) => resource,
 
         buildQueryParams: async ({ resource, pagination, filters }) => {
-            const page = pagination?.currentPage ?? 1;
-            const pageSize = pagination?.pageSize ?? 10;
+            const params: Record<string, string | number> = {};
 
-            const params: Record<string, string|number> = { page, limit: pageSize };
+            if (pagination?.mode !== "off") {
+                const page = pagination?.currentPage ?? 1;
+                const pageSize = pagination?.pageSize ?? 10;
+
+                params.page = page;
+                params.limit = pageSize;
+            }
 
             filters?.forEach((filter) => {
                 const field = 'field' in filter ? filter.field : '';
-
                 const value = String(filter.value);
 
                 if (resource === "departments") {
                     if (field === "name" || field === "code") params.search = value;
+                }
+
+                if (resource === "users") {
+                    if (field === "role") params.role = value;
                 }
 
                 if(resource === 'subjects') {
